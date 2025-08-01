@@ -1,8 +1,0 @@
-[33m40fb76e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Track large model with Git LFS
-[33m2dcdd46[m Remove large file from repo and ignore it
-[33m16506b7[m Add full backend with 5 API and requirements.txt
-[33m99c9452[m Add full backend with 5 API and requirements.txt
-[33m9b02ab6[m Add full backend with 5 API and requirements.txt
-[33m44f42e9[m[33m ([m[1;31morigin/main[m[33m)[m Modified CI file
-[33mdd9cdb2[m added CI
-[33m6dc27ca[m Initial commit

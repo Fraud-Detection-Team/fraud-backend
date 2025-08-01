@@ -25,7 +25,7 @@ def prepare_data():
     features["mcc"] = features["mcc"].astype("category").cat.codes
     features["errors"] = features["errors"].astype("category").cat.codes
 
-    labels = df[gi"is_fraud"]
+    labels = df["is_fraud"]
 
     return features, labels
 

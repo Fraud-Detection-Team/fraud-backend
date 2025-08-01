@@ -204,3 +204,5 @@ cython_debug/
 # Marimo
 marimo/_static/
 marimo/_lsp/
+
+app/models/fraud_model.pkl

@@ -4,7 +4,9 @@ from ..models.fraud import FraudInput
 
 router = APIRouter()
 
-model = joblib.load("models/fraud_model_v2.pkl")
+base_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(base_dir, "models", "fraud_model_v2.pkl")
+model = joblib.load(model_path)
 
 @router.post("/fraud/predict")
 async def predict_fraud(transaction: FraudInput):

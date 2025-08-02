@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
-from data.loader import load_transactions, load_users, load_zip_coordinates
-from utils.geo import haversine
+from ..data.loader import load_transactions, load_users, load_zip_coordinates
+from ..utils.geo import haversine
 from ..models.transactions import LocationRiskResponse
 
 router = APIRouter()

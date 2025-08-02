@@ -21,7 +21,8 @@ def prepare_data():
     df = transactions.merge(labels_df, on="id", how="inner")
 
     # Feature selection
-    features = df[["amount", "errors", "mcc"]]  
+    features = df[["amount", "use_chip", "errors", "mcc"]]
+    features["use_chip"] = features["use_chip"].astype("category").cat.codes
     features["mcc"] = features["mcc"].astype("category").cat.codes
     features["errors"] = features["errors"].astype("category").cat.codes
 

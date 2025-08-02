@@ -21,12 +21,15 @@ def transactions_by_month():
     df["month"] = df["date"].dt.to_period("M").astype(str)
 
     # Add fraud label
-    df["fraud"] = df["id"].map(fraud_labels).fillna("No")
+    df["id"] = df["id"].astype(str).str.strip()
+    clean_labels = {str(k).strip(): v.strip().lower() for k, v in fraud_labels.items()}
+    df["fraud"] = df["id"].map(clean_labels).fillna("no")
+
 
     # Group by month
     grouped = df.groupby("month").agg(
         transactions=("id", "count"),
-        frauds=("fraud", lambda x: (x == "Yes").sum())
+        frauds=("fraud", lambda x: (x == "yes").sum())
     ).reset_index()
     grouped["fraud_rate"] = (grouped["frauds"] / grouped["transactions"]).round(4)
 

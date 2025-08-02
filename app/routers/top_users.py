@@ -6,7 +6,7 @@ from ..preload import transactions_df, users_df
 router = APIRouter(prefix="/TopUsers", tags=["Top Users Spending"])
 
 @router.get("/spending/top-users", response_model=List[SpendingAnalysis])
-def top_spending_users(limit: int = 5, sort_by: str = "ratio"):
+def top_spending_users(limit: int = 5, sort_by: str = "spending"):
     # Merge transactions with users
     spending = transactions_df.groupby("client_id")["amount"].sum().reset_index()
     merged = spending.merge(users_df[["id", "yearly_income"]], left_on="client_id", right_on="id")

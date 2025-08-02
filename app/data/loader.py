@@ -13,6 +13,7 @@ def load_transactions():
     df["card_id"] = df["card_id"].astype(str)
     df = df.apply(lambda col: col.str.strip() if col.dtype == "object" else col)
     df["amount"] = df["amount"].replace(r"[$,]", "", regex=True).astype(float)
+    df["zip"] = df["zip"].astype(str).str.zfill(5)
 
     if "date" in df.columns:
         df["date"] = pd.to_datetime(df["date"], errors="coerce")
@@ -52,4 +53,5 @@ def load_fraud_labels():
 def load_zip_coordinates():
     df = pd.read_csv(get_file_path("zip_lat_long.csv"))
     df["zip"] = df["zip"].astype(str).str.zfill(5)
-    return df.set_index("zip")[["latitude", "longitude"]].to_dict("index")
+    zip_coords = df.set_index("zip")[["latitude", "longitude"]].to_dict("index")
+    return zip_coords

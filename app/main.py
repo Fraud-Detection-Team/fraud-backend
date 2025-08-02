@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from .routers import cards, merchants, users, transactions, fraud, payment_method, top5_mcc, top_users, state_fraud, monthly_transactions
+from fastapi.middleware.cors import CORSMiddleware
+
+
 
 app = FastAPI()
 
@@ -15,3 +18,11 @@ app.include_router(top5_mcc.router)
 app.include_router(top_users.router)
 app.include_router(state_fraud.router)
 app.include_router(monthly_transactions.router)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)

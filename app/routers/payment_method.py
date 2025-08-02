@@ -8,13 +8,17 @@ router = APIRouter(prefix="/payment_method", tags=["Payment Method"])
 @router.get("/fraud/by-payment-method", response_model=List[PaymentMethodFraudStat])
 def fraud_by_payment_method():
     df = transactions_df.copy()
-    df["fraud"] = df["id"].map(fraud_labels).fillna("No")
+
+    # Add fraud label
+    df["id"] = df["id"].astype(str).str.strip()
+    clean_labels = {str(k).strip(): v.strip().lower() for k, v in fraud_labels.items()}
+    df["fraud"] = df["id"].map(clean_labels).fillna("no")
 
     result = []
     for method in df["use_chip"].dropna().unique():
         subset = df[df["use_chip"] == method]
         total = len(subset)
-        frauds = (subset["fraud"] == "Yes").sum()
+        frauds = (subset["fraud"] == "yes").sum()
         fraud_rate = round(frauds / total, 4) if total else 0.0
 
         result.append(PaymentMethodFraudStat(

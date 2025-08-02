@@ -9,19 +9,19 @@ def test_compromised_cards_endpoint():
     assert isinstance(response.json(), list)  # Check if response is a list
     assert all("id" in card and "client_id" in card for card in response.json())  # Check structure
 
-# def test_fraud_prediction():
-#     sample_input = {
-#         "amount": 120.5,
-#         "use_chip": "Swipe Transaction",
-#         "mcc": "5999",
-#         "errors": "None"
-#     }
+def test_fraud_prediction():
+    sample_input = {
+        "amount": 120.5,
+        "use_chip": "Swipe Transaction",
+        "mcc": "5999",
+        "errors": "None"
+    }
     
-#     response = client.post("/fraud/predict", json=sample_input)
+    response = client.post("/fraud/predict", json=sample_input)
     
-#     assert response.status_code == 200
-#     assert "fraud_prediction" in response.json()
-#     assert response.json()["fraud_prediction"] in ["Yes", "No"]
+    assert response.status_code == 200
+    assert "fraud_prediction" in response.json()
+    assert response.json()["fraud_prediction"] in ["Yes", "No"]
 
 def test_get_merchant_risk_exists():
     response = client.get("/merchants/risk", params={"mcc": "5812"})

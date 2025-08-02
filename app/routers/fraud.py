@@ -4,7 +4,7 @@ from ..models.fraud import FraudInput
 
 router = APIRouter()
 
-model = joblib.load("models/fraud_model.pkl")
+model = joblib.load("models/fraud_model_v2.pkl")
 
 @router.post("/fraud/predict")
 async def predict_fraud(transaction: FraudInput):

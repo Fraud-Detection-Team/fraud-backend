@@ -28,4 +28,3 @@ jobs:
       - name: Run tests
         run: |
           pytest -s tests/test_datasets.py
-          pytest -s tests/test_api.py

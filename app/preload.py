@@ -1,4 +1,4 @@
-from data import loader
+from .data import loader
 
 # Load once at app startup
 transactions_df = loader.load_transactions()

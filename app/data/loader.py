@@ -44,7 +44,7 @@ def load_mcc_codes():
 
 # --- FRAUD LABELS ---
 def load_fraud_labels():
-    with open(get_file_path("train_fraud_labels.json"), "r") as f:
+    with open(get_file_path("train_fraud_labels_small.json"), "r") as f:
         raw = json.load(f)["target"]
         return {str(k).strip(): v.strip().lower() for k, v in raw.items()}
 

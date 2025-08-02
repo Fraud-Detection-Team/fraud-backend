@@ -2,8 +2,10 @@ import pandas as pd
 import json
 import os
 
+
 def get_file_path(filename):
     return os.path.join(os.path.dirname(__file__), filename)
+
 
 # --- TRANSACTIONS ---
 def load_transactions():
@@ -21,6 +23,7 @@ def load_transactions():
 
     return df
 
+
 # --- USERS ---
 def load_users():
     df = pd.read_csv(get_file_path("users_data.csv"))
@@ -31,6 +34,7 @@ def load_users():
     df.dropna(subset=["id", "yearly_income"], inplace=True)
     return df
 
+
 # --- CARDS ---
 def load_cards():
     df = pd.read_csv(get_file_path("cards_data.csv"))
@@ -38,16 +42,19 @@ def load_cards():
     df["is_compromised"] = df["card_on_dark_web"].str.strip().str.lower() == "yes"
     return df
 
+
 # --- MCC CODES ---
 def load_mcc_codes():
     with open(get_file_path("mcc_codes.json"), "r") as f:
         return json.load(f)
+
 
 # --- FRAUD LABELS ---
 def load_fraud_labels():
     with open(get_file_path("train_fraud_labels_small.json"), "r") as f:
         raw = json.load(f)["target"]
         return {str(k).strip(): v.strip().lower() for k, v in raw.items()}
+
 
 # --- ZIP COORDINATES ---
 def load_zip_coordinates():

@@ -8,6 +8,7 @@ transactions = load_transactions()
 users = load_users().set_index("id")
 zip_coords = load_zip_coordinates()
 
+
 @router.get("/transactions/{transaction_id}/location-risk", response_model=LocationRiskResponse)
 def check_location_risk(transaction_id: str, threshold_km: float = 100.0):
     tx = transactions[transactions["id"] == transaction_id]

@@ -7,6 +7,7 @@ import pandas as pd
 
 router = APIRouter(prefix="/monthly_transactions", tags=["Monthly Transactions"])
 
+
 @router.get("/transactions/by-month", response_model=List[MonthlyTransactionStat])
 def transactions_by_month():
     df = transactions_df.copy()
@@ -24,7 +25,6 @@ def transactions_by_month():
     df["id"] = df["id"].astype(str).str.strip()
     clean_labels = {str(k).strip(): v.strip().lower() for k, v in fraud_labels.items()}
     df["fraud"] = df["id"].map(clean_labels).fillna("no")
-
 
     # Group by month
     grouped = df.groupby("month").agg(

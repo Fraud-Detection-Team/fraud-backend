@@ -5,6 +5,7 @@ from ..models.payment_method import PaymentMethodFraudStat
 
 router = APIRouter(prefix="/payment_method", tags=["Payment Method"])
 
+
 @router.get("/fraud/by-payment-method", response_model=List[PaymentMethodFraudStat])
 def fraud_by_payment_method():
     df = transactions_df.copy()

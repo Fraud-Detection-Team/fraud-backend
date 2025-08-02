@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from typing import List
-from preload import transactions_df, fraud_labels
+from ..preload import transactions_df, fraud_labels
 from ..models.state_fraud import StateFraudVolume
 
 router = APIRouter(prefix="/state_fraud", tags=["State Fraud"])

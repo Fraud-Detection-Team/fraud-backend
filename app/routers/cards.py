@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from ..models.cards import CompromisedCard
-from preload import cards_df
+from ..preload import cards_df
 
 router = APIRouter(prefix="/cards", tags=["Cards"])
 

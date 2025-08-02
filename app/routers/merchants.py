@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query, HTTPException
-from preload import transactions_df, fraud_labels, mcc_dict
+from ..preload import transactions_df, fraud_labels, mcc_dict
 from ..models.merchants import MerchantRiskResponse
 
 router = APIRouter(prefix="/merchants", tags=["Merchants"])

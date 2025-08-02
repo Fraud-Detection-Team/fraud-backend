@@ -28,6 +28,9 @@ def load_transactions():
         df["date"] = pd.to_datetime(df["date"], errors="coerce")
     df.dropna(subset=["id", "amount"], inplace=True)
 
+    if "error" in df.columns:
+        df = df[df["error"].notna()].head(15000)
+
     return df
 
 # --- USERS ---

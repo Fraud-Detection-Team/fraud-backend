@@ -39,8 +39,8 @@ def train_and_save_model():
     y_pred = clf.predict(X_test)
     print("Classification Report:\n", classification_report(y_test, y_pred))
 
-    joblib.dump(clf, "models/fraud_model.pkl")
-    print("✅ Model saved at models/fraud_model.pkl")
+    joblib.dump(clf, "models/fraud_model_v2.pkl")
+    print("✅ Model saved at models/fraud_model_v2.pkl")
 
 if __name__ == "__main__":
     train_and_save_model()

@@ -1,6 +1,6 @@
 import joblib
 from fastapi import APIRouter
-from models.fraud import FraudInput
+from ..models.fraud import FraudInput
 
 router = APIRouter()
 

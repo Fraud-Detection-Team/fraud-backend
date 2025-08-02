@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from preload import transactions_df, users_df
-from models.users import SpendingAnalysis
+from ..models.users import SpendingAnalysis
 
 router = APIRouter(prefix="/users", tags=["Users"])
 

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from typing import List
 from preload import transactions_df, fraud_labels, mcc_dict
-from models.merchants import MerchantRiskResponse
+from ..models.merchants import MerchantRiskResponse
 
 router = APIRouter(prefix="/Top5Merchant", tags=["Top 5 Merchant MCC"])
 

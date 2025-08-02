@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from typing import List
-from models.users import SpendingAnalysis
+from ..models.users import SpendingAnalysis
 from preload import transactions_df, users_df
 
 router = APIRouter(prefix="/TopUsers", tags=["Top Users Spending"])

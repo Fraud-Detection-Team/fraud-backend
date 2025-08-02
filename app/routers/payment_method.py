@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from typing import List
 from preload import transactions_df, fraud_labels
-from models.payment_method import PaymentMethodFraudStat
+from ..models.payment_method import PaymentMethodFraudStat
 
 router = APIRouter(prefix="/payment_method", tags=["Payment Method"])
 

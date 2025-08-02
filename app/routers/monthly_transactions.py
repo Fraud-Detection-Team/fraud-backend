@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from typing import List
 from preload import transactions_df, fraud_labels
-from models.monthly_transactions import MonthlyTransactionStat
+from ..models.monthly_transactions import MonthlyTransactionStat
 from fastapi import HTTPException
 import pandas as pd
 

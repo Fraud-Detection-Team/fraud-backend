@@ -4,6 +4,7 @@ from ..models.merchants import MerchantRiskResponse
 
 router = APIRouter(prefix="/merchants", tags=["Merchants"])
 
+
 @router.get("/risk", response_model=MerchantRiskResponse)
 def get_merchant_risk(mcc: str = Query(..., description="MCC code like 5812")):
     # Filter by MCC

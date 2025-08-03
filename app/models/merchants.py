@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class MerchantRiskResponse(BaseModel):
     mcc: str
     category: str

@@ -5,6 +5,7 @@ from ..models.state_fraud import StateFraudVolume
 
 router = APIRouter(prefix="/state_fraud", tags=["State Fraud"])
 
+
 @router.get("/volume/by-state", response_model=List[StateFraudVolume])
 def transaction_volume_by_state():
     df = transactions_df.copy()

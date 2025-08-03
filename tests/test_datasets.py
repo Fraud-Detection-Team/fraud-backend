@@ -1,8 +1,8 @@
-import pytest
 from app.data.loader import (
     load_transactions, load_users, load_cards,
     load_mcc_codes, load_fraud_labels, load_zip_coordinates
 )
+
 
 def test_load_transactions():
     df = load_transactions()
@@ -12,6 +12,7 @@ def test_load_transactions():
     assert df["id"].dtype == object or df["id"].dtype == "string"
     assert df["amount"].notnull().all()
 
+
 def test_load_users():
     df = load_users()
     assert not df.empty
@@ -20,12 +21,14 @@ def test_load_users():
     assert df["yearly_income"].dtype == float
     assert df["id"].dtype == object or df["id"].dtype == "string"
 
+
 def test_load_cards():
     df = load_cards()
     assert not df.empty
     assert "id" in df.columns
     assert "is_compromised" in df.columns
     assert df["is_compromised"].dtype == bool
+
 
 def test_load_mcc_codes():
     mcc = load_mcc_codes()
@@ -36,11 +39,13 @@ def test_load_mcc_codes():
     assert isinstance(sample_key, str)
     assert isinstance(sample_val, str)
 
+
 def test_load_fraud_labels():
     labels = load_fraud_labels()
     assert isinstance(labels, dict)
     assert all(isinstance(k, str) for k in labels.keys())
     assert all(isinstance(v, str) for v in labels.values())
+
 
 def test_load_zip_coordinates():
     coords = load_zip_coordinates()

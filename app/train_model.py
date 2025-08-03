@@ -1,11 +1,11 @@
 import pandas as pd
-import json
 import joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
 from data.loader import load_transactions, load_fraud_labels
+
 
 def prepare_data():
     transactions = load_transactions()
@@ -30,6 +30,7 @@ def prepare_data():
 
     return features, labels
 
+
 def train_and_save_model():
     X, y = prepare_data()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -42,6 +43,7 @@ def train_and_save_model():
 
     joblib.dump(clf, "models/fraud_model_v2.pkl")
     print("✅ Model saved at models/fraud_model_v2.pkl")
+
 
 if __name__ == "__main__":
     train_and_save_model()

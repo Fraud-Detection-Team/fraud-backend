@@ -4,6 +4,7 @@ from ..models.users import SpendingAnalysis
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
+
 @router.get("/{client_id}/spending", response_model=SpendingAnalysis)
 def analyze_user_spending(client_id: str):
     # Filter user

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class SpendingAnalysis(BaseModel):
     user_id: str
     income: float

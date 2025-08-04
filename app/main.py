@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.orm import Session
 
 from .routers import (
     cards, merchants, users, transactions,
@@ -9,23 +10,24 @@ from .routers import (
 )
 
 # Auth modules
-from .auth import auth, schemas, deps, models
+from .auth import auth, schemas, deps
+from .database.db import get_db  # make sure this exists
 
 app = FastAPI()
 
 # Auth: Login endpoint
 @app.post("/auth/login", response_model=schemas.Token)
-def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = auth.authenticate_user(models.fake_users_db, form_data.username, form_data.password)
+def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    user = auth.authenticate_user(db, form_data.username, form_data.password)  # form_data.username = email
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    token = auth.create_access_token({"sub": user["username"]})
+    token = auth.create_access_token({"sub": user.email})
     return {"access_token": token, "token_type": "bearer"}
 
 # Example: protect any endpoint
 @app.get("/secure/test")
 def secure_route(current_user: schemas.User = Depends(deps.get_current_user)):
-    return {"message": f"Welcome, {current_user.username}!"}
+    return {"message": f"Welcome, {current_user.email}!"}
 
 # Routers
 app.include_router(cards.router)
@@ -47,4 +49,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-

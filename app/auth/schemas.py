@@ -1,5 +1,3 @@
-# app/auth/schemas.py
-
 from pydantic import BaseModel
 
 class Token(BaseModel):
@@ -7,12 +5,12 @@ class Token(BaseModel):
     token_type: str
 
 class TokenData(BaseModel):
-    username: str | None = None
+    email: str | None = None  # ✅ was 'username'
 
 class User(BaseModel):
-    username: str
+    email: str
     role: str
 
 class LoginInput(BaseModel):
-    username: str
+    email: str  # ✅ was 'username'
     password: str

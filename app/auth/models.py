@@ -1,10 +1,11 @@
-# app/auth/models.py
+from sqlalchemy import Column, String
+from sqlalchemy.ext.declarative import declarative_base
 
-# Password: password123
-fake_users_db = {
-    "admin123@gmail.com": {
-        "username": "admin123@gmail.com",
-        "hashed_password": "$2b$12$mFHXO0hXjRiUbFChB0BSXueITTeAGWjK3290gms22wqy7HZq2WP7O",
-        "role": "admin"
-    }
-}
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = "users"
+
+    email = Column(String, primary_key=True, index=True)
+    hashed_password = Column(String)
+    role = Column(String)

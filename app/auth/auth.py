@@ -5,6 +5,8 @@ from datetime import datetime, timedelta
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from dotenv import load_dotenv
+from app.database.db import SessionLocal
+from app.auth.models import User as DBUser  # SQLAlchemy model
 
 load_dotenv()
 
@@ -20,13 +22,14 @@ def verify_password(plain_password, hashed_password):
 def get_password_hash(password):
     return pwd_context.hash(password)
 
-def authenticate_user(user_db, username: str, password: str):
-    user = user_db.get(username)
+def authenticate_user(db, email: str, password: str):
+    user = db.query(DBUser).filter(DBUser.email == email).first()
     if not user:
         return None
-    if not verify_password(password, user["hashed_password"]):
+    if not verify_password(password, user.hashed_password):
         return None
     return user
+
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()

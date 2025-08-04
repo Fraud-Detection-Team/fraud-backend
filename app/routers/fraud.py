@@ -35,6 +35,6 @@ async def predict_fraud(
 
     return {
         "fraud_prediction": "Yes" if prediction == 1 else "No",
-        "predicted_by": current_user.username  # Optional: return user info for traceability
+        "predicted_by": current_user.email  # Optional: return user info for traceability
     }
 

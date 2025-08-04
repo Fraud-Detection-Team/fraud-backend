@@ -1,10 +1,33 @@
-from fastapi import FastAPI
-from .routers import cards, merchants, users, transactions, fraud, payment_method, top5_mcc, top_users, state_fraud, monthly_transactions
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import OAuth2PasswordRequestForm
+
+from .routers import (
+    cards, merchants, users, transactions,
+    fraud, payment_method, top5_mcc,
+    top_users, state_fraud, monthly_transactions
+)
+
+# Auth modules
+from .auth import auth, schemas, deps, models
 
 app = FastAPI()
 
-# Include Routers
+# Auth: Login endpoint
+@app.post("/auth/login", response_model=schemas.Token)
+def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = auth.authenticate_user(models.fake_users_db, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+    token = auth.create_access_token({"sub": user["username"]})
+    return {"access_token": token, "token_type": "bearer"}
+
+# Example: protect any endpoint
+@app.get("/secure/test")
+def secure_route(current_user: schemas.User = Depends(deps.get_current_user)):
+    return {"message": f"Welcome, {current_user.username}!"}
+
+# Routers
 app.include_router(cards.router)
 app.include_router(merchants.router)
 app.include_router(users.router)
@@ -16,6 +39,7 @@ app.include_router(top_users.router)
 app.include_router(state_fraud.router)
 app.include_router(monthly_transactions.router)
 
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -23,3 +47,4 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+

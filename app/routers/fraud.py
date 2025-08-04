@@ -1,7 +1,9 @@
 import joblib
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from ..models.fraud import FraudInput
 from pathlib import Path
+from ..auth.deps import get_current_user
+from ..auth.schemas import User
 
 
 router = APIRouter()
@@ -12,7 +14,10 @@ model = joblib.load(model_path)
 
 
 @router.post("/fraud/predict")
-async def predict_fraud(transaction: FraudInput):
+async def predict_fraud(
+    transaction: FraudInput,
+    current_user: User = Depends(get_current_user)
+):
     mcc_code = int(transaction.mcc)
     error_code = str(transaction.errors)
 
@@ -27,4 +32,9 @@ async def predict_fraud(transaction: FraudInput):
     ]]
 
     prediction = model.predict(features)[0]
-    return {"fraud_prediction": "Yes" if prediction == 1 else "No"}
+
+    return {
+        "fraud_prediction": "Yes" if prediction == 1 else "No",
+        "predicted_by": current_user.username  # Optional: return user info for traceability
+    }
+
